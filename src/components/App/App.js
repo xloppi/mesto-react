@@ -1,5 +1,7 @@
 
 import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 
 function App() {
@@ -7,32 +9,9 @@ function App() {
     <div className="page">
       <div className="page__content">
       <Header />
-      <main className="content">
-        <section className="profile">
-          <div className="profile__avatar-container">
-            <img className="profile__avatar" src="#" alt="аватарка" />
-            <button className="profile__avatar-button"></button>
-          </div>
-          <div className="profile__info">
-            <h1 className="profile__title">Имя</h1>
-            <button type="button" className="profile__edit-button"></button>
-            <p className="profile__subtitle">О себе</p>
-          </div>
-          <button type="button" className="profile__add-button">
-          </button>
-        </section>
-
-        <section className="elements content__elements">
-          <ul className="elements__cards">
-
-          </ul>
-        </section>
-
-      </main>
-      <footer className="footer">
-        <p className="footer__copyrigth">&copy; 2020 Mesto Russia</p>
-      </footer>
-
+      <Main />
+      <Footer />
+      
       <section className="popup popup_edit-profile">
         <div className="popup__container">
           <h2 className="popup__title">Редактировать профиль</h2>
