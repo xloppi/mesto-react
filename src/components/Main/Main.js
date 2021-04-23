@@ -1,15 +1,15 @@
 function Main() {
 
 const handleEditAvatarClick = () => {
-  document.querySelector('.popup_update-avatar').classList.add('popup_display_flex')
+  document.querySelector('.popup_type_update-avatar').classList.add('popup_display_flex')
 }
 
 const handleEditProfileClick = () => {
-  document.querySelector('.popup_edit-profile').classList.add('popup_display_flex')
+  document.querySelector('.popup_type_edit-profile').classList.add('popup_display_flex')
 }
 
 const handleAddPlaceClick = () => {
-  document.querySelector('.popup_add-place').classList.add('popup_display_flex')
+  document.querySelector('.popup_type_add-place').classList.add('popup_display_flex')
 }
 
   return (
