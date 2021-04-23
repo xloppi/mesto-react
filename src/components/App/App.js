@@ -32,9 +32,7 @@ function App() {
         <span className="popup__input-error link-mesto-input-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm name="submit-delete" title="Вы уверены?" buttonTitle="Да">
-        <button type="button" className="popup__submit popup__close-delete-card">Да</button>
-      </PopupWithForm>
+      <PopupWithForm name="submit-delete" title="Вы уверены?" buttonTitle="Да" />
 
       <section className="popup popup_viewing-place-photo">
         <div className="popup__container-photo">
