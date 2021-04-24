@@ -1,18 +1,28 @@
 import {useState, useEffect } from 'react';
 import api from '../../utils/api';
+import Card from '../Card/Card';
 
 function Main(props) {
 
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getUserInfo()
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(data => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
+      setUserName(data[0].name);
+      setUserDescription(data[0].about);
+      setUserAvatar(data[0].avatar);
+      console.log(data[1]);
+      const dataCards = data[1].map((item) => ({
+        id: item._id,
+        name: item.name,
+        url: item.link,
+        likes: item.likes.length
+      }));
+      setCards(dataCards);
     })
     .catch((err) => {
       console.log('Ошибка: ', err);
@@ -37,7 +47,7 @@ function Main(props) {
 
       <section className="elements content__elements">
         <ul className="elements__cards">
-
+          {cards.map(card => <Card key={card.id} card={card} onCardClick={props.onCardClick} />)}
         </ul>
       </section>
     </main>

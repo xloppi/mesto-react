@@ -10,15 +10,16 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(true);
   }
-  
+
   const handleEditProfileClick = () => {
     setEditProfilePopupOpen(true);
   }
-  
+
   const handleAddPlaceClick = () => {
     setAddPlacePopupOpen(true);
   }
@@ -27,20 +28,25 @@ function App() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
+    setSelectedCard({});
+  }
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
   }
 
   return (
     <div className="page">
       <div className="page__content">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
       <Footer />
 
       <PopupWithForm name="update-avatar" title="Обновить аватар" buttonTitle="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <input type="url" name="link" id="link-avatar-input" className="popup__input popup__input_type_link" required placeholder="Ссылка на аватар" />
         <span className="popup__input-error link-avatar-input-error"></span>
       </PopupWithForm>
-      
+
       <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonTitle="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <input type="text" name="name" id="name-input" className="popup__input popup__input_type_name" required minLength="2" maxLength="40" />
         <span className="popup__input-error name-input-error"></span>
@@ -57,21 +63,7 @@ function App() {
 
       <PopupWithForm name="submit-delete" title="Вы уверены?" buttonTitle="Да" />
 
-      <ImagePopup />
-
-      <template className="elements__card_template">
-        <li className="elements__card">
-          <img className="elements__card-image" src="#" alt="#" />
-          <div className="elements__card-description">
-            <h2 className="elements__card-title">#</h2>
-            <div className="elements__card-like-section">
-              <button type="button" className="elements__card-like-button"></button>
-              <p className="elements__card-like-counter">1</p>
-            </div>
-          </div>
-          <button type="button" className="elements__card-delete-button"></button>
-        </li>
-      </template>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   </div>
   );
