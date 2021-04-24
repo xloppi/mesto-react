@@ -15,7 +15,6 @@ function Main(props) {
       setUserName(data[0].name);
       setUserDescription(data[0].about);
       setUserAvatar(data[0].avatar);
-      console.log(data[1]);
       const dataCards = data[1].map((item) => ({
         id: item._id,
         name: item.name,
