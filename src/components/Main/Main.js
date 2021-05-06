@@ -1,25 +1,23 @@
+import React from 'react';
 import {useState, useEffect } from 'react';
 import api from '../../utils/api';
 import Card from '../Card/Card';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function Main(props) {
 
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+  const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    api.getInitialCards()
     .then(data => {
-      setUserName(data[0].name);
-      setUserDescription(data[0].about);
-      setUserAvatar(data[0].avatar);
-      const dataCards = data[1].map((item) => ({
+      const dataCards = data.map((item) => ({
         id: item._id,
         name: item.name,
         url: item.link,
-        likes: item.likes.length
+        likes: item.likes,
+        owner: item.owner,
       }));
       setCards(dataCards);
     })
@@ -32,13 +30,13 @@ function Main(props) {
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <img className="profile__avatar" src={userAvatar} alt="аватарка" />
+          <img className="profile__avatar" src={currentUser.avatar} alt="аватарка" />
           <button className="profile__avatar-button" onClick={props.onEditAvatar}></button>
         </div>
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUser.name}</h1>
           <button type="button" className="profile__edit-button" onClick={props.onEditProfile}></button>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}>
         </button>
