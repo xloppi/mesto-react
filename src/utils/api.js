@@ -69,7 +69,7 @@ class Api {
     .then(this._then);
   }
 
-  putLikeTask(id) {
+  /*putLikeTask(id) {
     return fetch(`${this.url}/cards/likes/${id}`, {
       method: 'PUT',
       headers: this.headers,
@@ -83,6 +83,22 @@ class Api {
       headers: this.headers,
     })
     .then(this._then);
+  }*/
+
+  changeLikeCardStatus(id, like) {
+    if (like) {
+     return fetch(`${this.url}/cards/likes/${id}`, {
+        method: 'PUT',
+        headers: this.headers,
+      })
+      .then(this._then);
+    } else {
+      return fetch(`${this.url}/cards/likes/${id}`, {
+        method: 'DELETE',
+        headers: this.headers,
+      })
+      .then(this._then);
+    }
   }
 }
 

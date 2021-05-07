@@ -26,6 +26,22 @@ function Main(props) {
     });
   }, [])
 
+  const handleCardLike = (card) => {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card.id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c.id === card.id ? {
+          id: newCard._id,
+          name: newCard.name,
+          url: newCard.link,
+          likes: newCard.likes,
+          owner: newCard.owner,
+        } : c));
+    });
+  }
+
   return (
     <main className="content">
       <section className="profile">
@@ -44,7 +60,7 @@ function Main(props) {
 
       <section className="elements content__elements">
         <ul className="elements__cards">
-          {cards.map(card => <Card key={card.id} card={card} onCardClick={props.onCardClick} />)}
+          {cards.map(card => <Card key={card.id} card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>)}
         </ul>
       </section>
     </main>
