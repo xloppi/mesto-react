@@ -48,7 +48,7 @@ function Main(props) {
 
   //ИСПРАВИТЬ ПОСЛЕ ФУНКЦИИ ДОБАВЛЕНИЯ КАРТОЧКИ
   const handleCardDelete = (card) => {
-    deletePlaceTask(card.id).then((res) => {
+    api.deletePlaceTask(card.id).then((res) => {
       setCards((state) => state.filter((c) => c.id !== res._id))
     })
     .catch((err) => {

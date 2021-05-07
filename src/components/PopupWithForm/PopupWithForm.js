@@ -3,7 +3,7 @@ function PopupWithForm(props) {
       <section className={`popup popup_type_${props.name} ${props.isOpen && 'popup_display_flex'}`}>
         <div className="popup__container">
           <h2 className="popup__title">{props.title}</h2>
-          <form name={props.name} className={`popup__form popup__form_${props.name}`} noValidate>
+          <form name={props.name} className={`popup__form popup__form_${props.name}`} onSubmit={props.onSubmit} noValidate>
             <fieldset className="popup__fieldset">
               {props.children}
             </fieldset>
