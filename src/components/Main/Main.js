@@ -39,6 +39,20 @@ function Main(props) {
           likes: newCard.likes,
           owner: newCard.owner,
         } : c));
+    })
+    .catch((err) => {
+      console.log('Ошибка: ', err);
+    });
+  }
+
+
+  //ИСПРАВИТЬ ПОСЛЕ ФУНКЦИИ ДОБАВЛЕНИЯ КАРТОЧКИ
+  const handleCardDelete = (card) => {
+    deletePlaceTask(card.id).then((res) => {
+      setCards((state) => state.filter((c) => c.id !== res._id))
+    })
+    .catch((err) => {
+      console.log('Ошибка: ', err);
     });
   }
 
@@ -60,7 +74,7 @@ function Main(props) {
 
       <section className="elements content__elements">
         <ul className="elements__cards">
-          {cards.map(card => <Card key={card.id} card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike}/>)}
+          {cards.map(card => <Card key={card.id} card={card} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />)}
         </ul>
       </section>
     </main>
