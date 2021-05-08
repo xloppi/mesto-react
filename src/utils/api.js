@@ -4,7 +4,7 @@ class Api {
   constructor(options) {
     this.url = options.url;
     this.headers = options.headers;
-    this._then = (res) => {
+    this._getPromise = (res) => {
       if(res.ok) {
         return res.json();
       }
@@ -16,14 +16,14 @@ class Api {
     return fetch(`${this.url}/cards`, {
       headers: this.headers,
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
   getUserInfo() {
     return fetch(`${this.url}/users/me`, {
       headers: this.headers,
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
   editProfileTask(data) {
@@ -35,7 +35,7 @@ class Api {
         about: data.about,
       })
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
   addPlaceTask(data) {
@@ -47,7 +47,7 @@ class Api {
         link: data.link,
       })
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
   editAvatarTask(data) {
@@ -58,7 +58,7 @@ class Api {
         avatar: data.avatar,
       })
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
   deletePlaceTask(id) {
@@ -66,39 +66,15 @@ class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(this._then);
+    .then(this._getPromise);
   }
 
-  /*putLikeTask(id) {
-    return fetch(`${this.url}/cards/likes/${id}`, {
-      method: 'PUT',
-      headers: this.headers,
-    })
-    .then(this._then);
-  }
-
-  deleteLikeTask(id) {
-    return fetch(`${this.url}/cards/likes/${id}`, {
-      method: 'DELETE',
-      headers: this.headers,
-    })
-    .then(this._then);
-  }*/
-
-  changeLikeCardStatus(id, like) {
-    if (like) {
+  changeLikeCardStatus(id, isLiked) {
      return fetch(`${this.url}/cards/likes/${id}`, {
-        method: 'PUT',
+        method: isLiked ? 'DELETE' : 'PUT',
         headers: this.headers,
       })
-      .then(this._then);
-    } else {
-      return fetch(`${this.url}/cards/likes/${id}`, {
-        method: 'DELETE',
-        headers: this.headers,
-      })
-      .then(this._then);
-    }
+      .then(this._getPromise);
   }
 }
 

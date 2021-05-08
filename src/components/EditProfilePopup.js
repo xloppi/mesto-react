@@ -10,11 +10,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    if(currentUser.name !== undefined && currentUser.about !== undefined) {
+    if(currentUser) {
       setName(currentUser.name);
       setDescription(currentUser.about);
     }
-  }, [currentUser]);
+  }, [isOpen, currentUser]);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -36,7 +36,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonTitle="Сохранить" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
       <input
         type="text"
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
         name="name"
         id="name-input"
@@ -48,7 +48,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       <span className="popup__input-error name-input-error"></span>
       <input
         type="text"
-        value={description}
+        value={description  || ''}
         onChange={handleDescriptionChange}
         name="about"
         id="job-input"

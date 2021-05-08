@@ -24,7 +24,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCa
 
       <section className="elements content__elements">
         <ul className="elements__cards">
-          {cards.map(card => <Card key={card.id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />)}
+          {cards.map(card => <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />)}
         </ul>
       </section>
     </main>

@@ -32,14 +32,7 @@ function App() {
   useEffect(() => {
     api.getInitialCards()
     .then(data => {
-      const dataCards = data.map((item) => ({
-        id: item._id,
-        name: item.name,
-        url: item.link,
-        likes: item.likes,
-        owner: item.owner,
-      }));
-      setCards(dataCards);
+      setCards(data);
     })
     .catch((err) => {
       console.log('Ошибка: ', err);
@@ -49,14 +42,8 @@ function App() {
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card.id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((c) => c.id === card.id ? {
-          id: newCard._id,
-          name: newCard.name,
-          url: newCard.link,
-          likes: newCard.likes,
-          owner: newCard.owner,
-        } : c));
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
     .catch((err) => {
       console.log('Ошибка: ', err);
@@ -64,8 +51,8 @@ function App() {
   }
 
   const handleCardDelete = (card) => {
-    api.deletePlaceTask(card.id).then((res) => {
-      setCards((state) => state.filter((c) => c.id !== card.id))
+    api.deletePlaceTask(card._id).then((res) => {
+      setCards((state) => state.filter((c) => c._id !== card._id))
     })
     .catch((err) => {
       console.log('Ошибка: ', err);
