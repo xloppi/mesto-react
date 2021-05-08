@@ -107,14 +107,7 @@ function App() {
   const handleAddPlaceSubmit = (data) => {
     api.addPlaceTask(data)
     .then(newCard => {
-      setCards([{
-        id: newCard._id,
-        name: newCard.name,
-        url: newCard.link,
-        likes: newCard.likes,
-        owner: newCard.owner,
-      },
-        ...cards]);
+      setCards([newCard, ...cards]);
       closeAllPopups();
     })
     .catch((err) => {
